@@ -1,30 +1,31 @@
-﻿using System;
+using System.Globalization;
 
-Console.WriteLine("¿cuantos kilos llevaras: ");
-float kilo = float.Parse(Console.ReadLine());
+Console.Write("Ingrese el peso del paquete en kg: ");
+decimal peso = decimal.Parse(
+    Console.ReadLine()!.Replace(',', '.'),
+    CultureInfo.InvariantCulture);
 
-
-if (kilo < 1 && kilo > 0)
+decimal tarifa;
+if (peso <= 0)
 {
-    decimal tarifa = 8000;
-    Console.WriteLine($"{tarifa:C0}");
+    tarifa = 0;
+    Console.WriteLine("Peso inválido");
 }
-else if (kilo >= 1 && kilo < 5)
+else if (peso < 1)
 {
-    decimal tarifa = 15000;
-    Console.WriteLine($"{tarifa:C0}");
+    tarifa = 8000;
 }
-else if (kilo >= 5 && kilo < 20)
+else if (peso < 5)
 {
-    decimal tarifa = 32000;
-    Console.WriteLine($"{tarifa:C0}");
+    tarifa = 15000;
 }
-else if (kilo >= 20)
+else if (peso < 20)
 {
-    decimal tarifa = 60000;
-    Console.WriteLine($"{tarifa:C0}");
+    tarifa = 32000;
 }
 else
 {
-    Console.WriteLine("tarifa 0 y mensaje de peso inválido");
+    tarifa = 60000;
 }
+
+Console.WriteLine($"Tarifa: ${tarifa:N0}".Replace(",", "."));
